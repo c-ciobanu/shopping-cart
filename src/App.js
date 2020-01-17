@@ -5,6 +5,10 @@ import Home from "containers/Home";
 import List from "containers/List";
 import NotFound from "containers/NotFound";
 
+import "sanitize.css";
+import "sanitize.css/forms.css";
+import "sanitize.css/typography.css";
+
 function App() {
 	return (
 		<Router>
