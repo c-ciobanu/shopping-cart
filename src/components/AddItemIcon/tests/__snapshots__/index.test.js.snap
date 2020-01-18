@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddItemIcon /> Should render and match the snapshot 1`] = `
+<form
+  class="sc-AykKD dIDREQ"
+>
+  <div />
+  <button
+    class="sc-AykKE gTIRaH"
+    type="button"
+  >
+    <svg>
+      plus.svg
+    </svg>
+  </button>
+</form>
+`;
