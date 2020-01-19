@@ -26,7 +26,16 @@ function AddItemIcon({ onSubmit, placeholder, title }) {
 
 	return (
 		<StyledForm onSubmit={handleSubmit}>
-			<div>{isAddMode ? <StyledInput type="text" onChange={handleInputChange} placeholder={placeholder} /> : null}</div>
+			<div>
+				{isAddMode ? (
+					<StyledInput
+						type="text"
+						onChange={handleInputChange}
+						onBlur={() => setIsAddMode(false)}
+						placeholder={placeholder}
+					/>
+				) : null}
+			</div>
 
 			<StyledButton
 				type={isAddMode ? "submit" : "button"}

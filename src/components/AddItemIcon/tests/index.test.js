@@ -25,6 +25,23 @@ describe("<AddItemIcon />", () => {
 		expect(() => getByPlaceholderText(placeholder)).not.toThrow();
 	});
 
+	it("Should return to original position on input blur", () => {
+		const { container } = render(<AddItemIcon onSubmit={() => {}} />);
+
+		const button = container.querySelector("button");
+
+		fireEvent.click(button);
+
+		const input = container.querySelector("input");
+
+		expect(input).toBeInTheDocument();
+
+		fireEvent.focus(input);
+		fireEvent.blur(input);
+
+		expect(input).not.toBeInTheDocument();
+	});
+
 	it("Should call onSubmit prop on form submit with the correct value", () => {
 		const onSubmitMock = jest.fn();
 		const inputValue = "test";
