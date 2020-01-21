@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import AddItemIcon from "components/AddItemIcon";
+import Lists from "components/Lists";
 
 function Home() {
 	const [products, setProducts] = useState([]);
@@ -11,11 +12,9 @@ function Home() {
 
 	return (
 		<>
-			<AddItemIcon title="Add list" placeholder="List name" onSubmit={handleSubmit} />
+			<Lists options={products} onDelete={(option) => console.log(`Delete ${option}`)} />
 
-			{products.map((product) => (
-				<p>{product}</p>
-			))}
+			<AddItemIcon title="Add list" placeholder="List name" onSubmit={handleSubmit} />
 		</>
 	);
 }
