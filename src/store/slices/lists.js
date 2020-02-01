@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let currentId = 0;
+import { Counter } from "utils/counter";
+
+const counter = new Counter("lastListId");
 
 const { actions, reducer } = createSlice({
 	name: "lists",
@@ -13,9 +15,9 @@ const { actions, reducer } = createSlice({
 				state.push({ name, id });
 			},
 			prepare(name) {
-				const id = ++currentId;
+				counter.increment();
 
-				return { payload: { name, id } };
+				return { payload: { name, id: counter.count } };
 			}
 		}
 	}
