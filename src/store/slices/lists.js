@@ -19,10 +19,13 @@ const { actions, reducer } = createSlice({
 
 				return { payload: { name, id: counter.count } };
 			}
+		},
+		removeList(state, action) {
+			return state.filter((el) => el.id !== action.payload);
 		}
 	}
 });
 
-export const { addList } = actions;
+export const { addList, removeList } = actions;
 
 export default reducer;

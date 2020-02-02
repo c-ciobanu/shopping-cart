@@ -1,4 +1,4 @@
-import reducer, { addList } from "../lists";
+import reducer, { addList, removeList } from "../lists";
 
 describe("reducer", () => {
 	it("should handle initial state", () => {
@@ -9,6 +9,10 @@ describe("reducer", () => {
 		expect(reducer(undefined, { type: addList.type, payload: { id: 1, name: "List 1" } })).toEqual([
 			{ id: 1, name: "List 1" }
 		]);
+	});
+
+	it("should handle removeList", () => {
+		expect(reducer([{ id: 1, name: "List 1" }], { type: removeList.type, payload: 1 })).toEqual([]);
 	});
 });
 
