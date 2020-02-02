@@ -14,11 +14,11 @@ function Home() {
 		dispatch(addList(value));
 	};
 
-	const listNames = lists.map((list) => list.name);
+	const listsOptions = lists.map((list) => ({ id: list.id, name: list.name, link: `/lists/${list.id}` }));
 
 	return (
 		<>
-			<Lists options={listNames} onDelete={(option) => console.log(`Delete ${option}`)} />
+			<Lists options={listsOptions} onDelete={(option) => console.log(`Delete ${option.name}`)} />
 
 			<AddItemIcon title="Add list" placeholder="List name" onSubmit={handleSubmit} />
 		</>

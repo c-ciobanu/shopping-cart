@@ -12,7 +12,11 @@ describe("<Lists />", () => {
 
 	it("Will call on delete function on the 'Delete' context menu voice click", () => {
 		const callback = jest.fn();
-		const options = ["Option 1", "Option 2", "Option 3"];
+		const options = [
+			{ id: 1, name: "Option 1", link: "/lists/1" },
+			{ id: 2, name: "Option 2", link: "/lists/2" },
+			{ id: 3, name: "Option 3", link: "/lists/3" }
+		];
 
 		const { container, getByText } = render(<Lists options={options} onDelete={callback} />);
 
