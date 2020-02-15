@@ -25,7 +25,7 @@ describe("<Lists />", () => {
 		fireEvent.click(moreButtons[0]);
 		fireEvent.click(getByText("Delete"));
 
-		expect(callback).toHaveBeenCalledTimes(1);
+		expect(callback).toHaveBeenCalled();
 		expect(callback).toHaveBeenCalledWith(options[0]);
 	});
 

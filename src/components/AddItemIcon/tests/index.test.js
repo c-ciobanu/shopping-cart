@@ -12,17 +12,19 @@ describe("<AddItemIcon />", () => {
 
 	it("Should show input after clicking button", () => {
 		const placeholder = "Input placeholder";
-		const { container, getByPlaceholderText } = render(<AddItemIcon onSubmit={() => {}} placeholder={placeholder} />);
+		const { container, getByPlaceholderText, queryByPlaceholderText } = render(
+			<AddItemIcon onSubmit={() => {}} placeholder={placeholder} />
+		);
 
 		const button = container.querySelector("button");
 
-		expect(button).not.toHaveAttribute("disabled");
-		expect(() => getByPlaceholderText(placeholder)).toThrow();
+		expect(button).toBeEnabled();
+		expect(queryByPlaceholderText(placeholder)).not.toBeInTheDocument();
 
 		fireEvent.click(button);
 
-		expect(button).toHaveAttribute("disabled");
-		expect(() => getByPlaceholderText(placeholder)).not.toThrow();
+		expect(button).toBeDisabled();
+		expect(getByPlaceholderText(placeholder)).toBeInTheDocument();
 	});
 
 	it("Should return to original position on input blur", () => {
@@ -57,7 +59,7 @@ describe("<AddItemIcon />", () => {
 		fireEvent.change(input, { target: { value: inputValue } });
 		fireEvent.click(button);
 
-		expect(onSubmitMock).toHaveBeenCalledTimes(1);
+		expect(onSubmitMock).toHaveBeenCalled();
 		expect(onSubmitMock).toHaveBeenCalledWith(inputValue);
 	});
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, getAllByRole } from "@testing-library/react";
 
 import ContextMenu from "../index";
 
@@ -24,19 +24,19 @@ describe("<ContextMenu />", () => {
 		const menu = container.querySelector("ul");
 		let menuItems = container.querySelectorAll("li");
 
-		expect(menuItems.length).toBe(0);
+		expect(menuItems).toHaveLength(0);
 
 		fireEvent.click(button);
 
 		menuItems = container.querySelectorAll("li");
 
-		expect(menuItems.length).toBe(3);
+		expect(menuItems).toHaveLength(3);
 
 		fireEvent.blur(menu);
 
 		menuItems = container.querySelectorAll("li");
 
-		expect(menuItems.length).toBe(0);
+		expect(menuItems).toHaveLength(0);
 	});
 
 	it("Should correctly call callback on menu item click", () => {
@@ -48,7 +48,7 @@ describe("<ContextMenu />", () => {
 
 		fireEvent.click(getByText(options[0].text));
 
-		expect(callback).toHaveBeenCalledTimes(1);
+		expect(callback).toHaveBeenCalled();
 	});
 
 	it("Should render and match the snapshot", () => {

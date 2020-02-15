@@ -22,7 +22,7 @@ describe("<FormInput />", () => {
 		fireEvent.change(input, { target: { value: inputValue } });
 		fireEvent.submit(form);
 
-		expect(onSubmitMock).toHaveBeenCalledTimes(1);
+		expect(onSubmitMock).toHaveBeenCalled();
 		expect(onSubmitMock).toHaveBeenCalledWith(inputValue);
 	});
 
