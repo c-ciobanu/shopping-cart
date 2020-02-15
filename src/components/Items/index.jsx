@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { StyledList, StyledListItem, StyledItemName, StyledTrashIcon } from "./styled";
+import Checkbox from "components/Checkbox";
+
+import { StyledList, StyledListItem, StyledTrashIcon } from "./styled";
 
 function Items({ options, onChange, onDelete }) {
 	const handleChange = (item, newVal) => {
@@ -12,11 +14,9 @@ function Items({ options, onChange, onDelete }) {
 		<StyledList>
 			{options.map((option) => (
 				<StyledListItem key={`item-${option.name}`}>
-					<input type="checkbox" onChange={(e) => handleChange(option.name, e.target.checked)} />
+					<Checkbox name={option.name} label={option.name} onChange={(e) => handleChange(option, e.target.checked)} />
 
-					<StyledItemName>{option.name}</StyledItemName>
-
-					<StyledTrashIcon onClick={() => onDelete(option)} />
+					<StyledTrashIcon onClick={() => onDelete(option)} data-testid={`remove-item-${option.name}`} />
 				</StyledListItem>
 			))}
 		</StyledList>

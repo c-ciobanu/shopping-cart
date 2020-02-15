@@ -2,6 +2,6 @@
 
 exports[`<Items /> Should render and match the snapshot 1`] = `
 <ul
-  class="sc-AykKC ctxIPc"
+  class="sc-AykKE cRKDsa"
 />
 `;

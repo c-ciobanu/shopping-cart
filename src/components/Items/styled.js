@@ -9,13 +9,15 @@ export const StyledList = styled.ul`
 
 export const StyledListItem = styled.li`
 	display: grid;
-	grid-template-columns: auto 1fr auto;
+	grid-template-columns: 1fr auto;
 	grid-column-gap: 10px;
 	align-items: center;
-`;
+	padding: 10px 0;
+	border-bottom: 1px solid #000;
 
-export const StyledItemName = styled.p`
-	margin: 0;
+	&:last-child {
+		border-bottom: 0;
+	}
 `;
 
 export const StyledTrashIcon = styled(TrashIcon)`
