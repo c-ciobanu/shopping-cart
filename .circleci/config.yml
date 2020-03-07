@@ -12,7 +12,19 @@ jobs:
             - run: npm ci
       - run: npm run lint
       - run: npm run test:all
+  build:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm ci
+      - run: npm run build
 workflows:
-  test:
+  build-and-test:
     jobs:
       - test
+      - build:
+          requires:
+            - test
