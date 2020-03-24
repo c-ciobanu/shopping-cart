@@ -5,6 +5,7 @@ import { addList, removeList } from "store/slices/lists";
 
 import AddItemIcon from "components/AddItemIcon";
 import Lists from "components/Lists";
+import Spacer from "components/Spacer";
 
 function Home() {
 	const dispatch = useDispatch();
@@ -23,6 +24,8 @@ function Home() {
 	return (
 		<>
 			<Lists options={listsOptions} onDelete={handleListRemoval} />
+
+			<Spacer size="base" />
 
 			<AddItemIcon title="Add list" placeholder="List name" onSubmit={handleSubmit} />
 		</>
