@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { ReactComponent as PlusIcon } from "assets/svg/plus.svg";
 import { ReactComponent as CheckIcon } from "assets/svg/check.svg";
 
-import { StyledForm, StyledButton, StyledInput } from "./styled";
+import { StyledForm, StyledButton, StyledInput, StyledDiv } from "./styled";
 
 function AddItemIcon({ onSubmit, placeholder, title }) {
 	const [isAddMode, setIsAddMode] = useState(false);
@@ -24,28 +24,34 @@ function AddItemIcon({ onSubmit, placeholder, title }) {
 		setInputValue(e.target.value);
 	};
 
-	return (
-		<StyledForm onSubmit={handleSubmit}>
-			<div>
-				{isAddMode ? (
-					<StyledInput
-						type="text"
-						onChange={handleInputChange}
-						onBlur={() => setIsAddMode(false)}
-						placeholder={placeholder}
-					/>
-				) : null}
-			</div>
+	const handleInputBlur = (e) => {
+		const { relatedTarget } = e;
 
-			<StyledButton
-				type={isAddMode ? "submit" : "button"}
-				title={title}
-				onClick={isAddMode ? null : () => setIsAddMode(true)}
-				disabled={isAddMode && inputValue === ""}
-			>
-				{isAddMode ? <CheckIcon /> : <PlusIcon />}
+		if (!relatedTarget || relatedTarget.type !== "submit") {
+			setIsAddMode(false);
+		}
+	};
+
+	return isAddMode ? (
+		<StyledForm onSubmit={handleSubmit}>
+			<StyledInput
+				type="text"
+				onChange={handleInputChange}
+				onBlur={handleInputBlur}
+				placeholder={placeholder}
+				autoFocus={true}
+			/>
+
+			<StyledButton type="submit" title={title} disabled={inputValue === ""}>
+				<CheckIcon />
 			</StyledButton>
 		</StyledForm>
+	) : (
+		<StyledDiv>
+			<StyledButton type="button" title={title} onClick={() => setIsAddMode(true)}>
+				<PlusIcon />
+			</StyledButton>
+		</StyledDiv>
 	);
 }
 

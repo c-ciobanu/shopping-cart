@@ -30,3 +30,8 @@ export const StyledButton = styled.button`
 		opacity: 0.25;
 	}
 `;
+
+export const StyledDiv = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;

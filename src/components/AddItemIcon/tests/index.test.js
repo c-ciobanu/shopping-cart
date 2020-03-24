@@ -16,14 +16,16 @@ describe("<AddItemIcon />", () => {
 			<AddItemIcon onSubmit={() => {}} placeholder={placeholder} />
 		);
 
-		const button = container.querySelector("button");
+		const toggleButton = container.querySelector("button[type='button']");
 
-		expect(button).toBeEnabled();
+		expect(toggleButton).toBeEnabled();
 		expect(queryByPlaceholderText(placeholder)).not.toBeInTheDocument();
 
-		fireEvent.click(button);
+		fireEvent.click(toggleButton);
 
-		expect(button).toBeDisabled();
+		const submitButton = container.querySelector("button[type='submit']");
+
+		expect(submitButton).toBeDisabled();
 		expect(getByPlaceholderText(placeholder)).toBeInTheDocument();
 	});
 
@@ -38,7 +40,6 @@ describe("<AddItemIcon />", () => {
 
 		expect(input).toBeInTheDocument();
 
-		fireEvent.focus(input);
 		fireEvent.blur(input);
 
 		expect(input).not.toBeInTheDocument();
@@ -50,14 +51,17 @@ describe("<AddItemIcon />", () => {
 
 		const { container } = render(<AddItemIcon onSubmit={onSubmitMock} />);
 
-		const button = container.querySelector("button");
+		const toggleButton = container.querySelector("button[type='button']");
 
-		fireEvent.click(button);
+		fireEvent.click(toggleButton);
 
 		const input = container.querySelector("input");
 
 		fireEvent.change(input, { target: { value: inputValue } });
-		fireEvent.click(button);
+
+		const submitButton = container.querySelector("button[type='submit']");
+
+		fireEvent.click(submitButton);
 
 		expect(onSubmitMock).toHaveBeenCalled();
 		expect(onSubmitMock).toHaveBeenCalledWith(inputValue);
