@@ -51,6 +51,7 @@
 			"!src/App.jsx",
 			"!src/store/index.js",
 			"!src/**/styled.js",
+			"!src/**/consts.js",
 			"!<rootDir>/node_modules/"
 		],
 		"coverageThreshold": {
