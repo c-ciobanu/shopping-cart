@@ -1,3 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Home /> should render and match the snapshot 1`] = `<div />`;
+exports[`<Home /> should render and match the snapshot 1`] = `
+<div
+  class="sc-fzXfLP dgoEug"
+>
+  <div
+    class="sc-AykKF lBIp"
+  >
+    <button
+      class="sc-AykKE gTIRaH"
+      title="Add list"
+      type="button"
+    >
+      <svg>
+        plus.svg
+      </svg>
+    </button>
+  </div>
+</div>
+`;

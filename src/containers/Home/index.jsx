@@ -5,7 +5,7 @@ import { addList, removeList } from "store/slices/lists";
 
 import AddItemIcon from "components/AddItemIcon";
 import Lists from "components/Lists";
-import Spacer from "components/Spacer";
+import Stack from "components/Stack";
 
 function Home() {
 	const dispatch = useDispatch();
@@ -22,13 +22,11 @@ function Home() {
 	const listsOptions = lists.map((list) => ({ id: list.id, name: list.name, link: `/lists/${list.id}` }));
 
 	return (
-		<>
+		<Stack space="base">
 			<Lists options={listsOptions} onDelete={handleListRemoval} />
 
-			<Spacer size="base" />
-
 			<AddItemIcon title="Add list" placeholder="List name" onSubmit={handleSubmit} />
-		</>
+		</Stack>
 	);
 }
 
