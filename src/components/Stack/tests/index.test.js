@@ -15,6 +15,17 @@ describe("<Stack />", () => {
 		expect(spy).not.toHaveBeenCalled();
 	});
 
+	it("should render ul wrapper if component prop is passed with ul value", () => {
+		const { getByRole } = render(
+			<Stack space="base" component="ul">
+				<p>1</p>
+				<p>2</p>
+			</Stack>
+		);
+
+		expect(getByRole("list")).toBeInTheDocument();
+	});
+
 	it("Should render and match the snapshot", () => {
 		const {
 			container: { firstChild }
