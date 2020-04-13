@@ -1,3 +1,102 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Lists /> Should render and match the snapshot 1`] = `<div />`;
+exports[`<Lists /> Should render and match the snapshot 1`] = `
+<div>
+  <div
+    class="sc-AykKG hFqUOC"
+  >
+    <a
+      class="sc-AykKH iYBAuN"
+      href="/lists/1"
+    >
+      Option 1
+    </a>
+    <div
+      class="sc-AykKC fnZNYC"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        aria-labelledby="downshift-7-label downshift-7-toggle-button"
+        class="sc-AykKF gvJIvP"
+        id="downshift-7-toggle-button"
+      >
+        <svg>
+          more.svg
+        </svg>
+      </button>
+      <ul
+        aria-labelledby="downshift-7-label"
+        class="sc-AykKD hcHMvH"
+        id="downshift-7-menu"
+        role="listbox"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+  <div
+    class="sc-AykKG hFqUOC"
+  >
+    <a
+      class="sc-AykKH iYBAuN"
+      href="/lists/2"
+    >
+      Option 2
+    </a>
+    <div
+      class="sc-AykKC fnZNYC"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        aria-labelledby="downshift-8-label downshift-8-toggle-button"
+        class="sc-AykKF gvJIvP"
+        id="downshift-8-toggle-button"
+      >
+        <svg>
+          more.svg
+        </svg>
+      </button>
+      <ul
+        aria-labelledby="downshift-8-label"
+        class="sc-AykKD hcHMvH"
+        id="downshift-8-menu"
+        role="listbox"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+  <div
+    class="sc-AykKG hFqUOC"
+  >
+    <a
+      class="sc-AykKH iYBAuN"
+      href="/lists/3"
+    >
+      Option 3
+    </a>
+    <div
+      class="sc-AykKC fnZNYC"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        aria-labelledby="downshift-9-label downshift-9-toggle-button"
+        class="sc-AykKF gvJIvP"
+        id="downshift-9-toggle-button"
+      >
+        <svg>
+          more.svg
+        </svg>
+      </button>
+      <ul
+        aria-labelledby="downshift-9-label"
+        class="sc-AykKD hcHMvH"
+        id="downshift-9-menu"
+        role="listbox"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -6,6 +6,10 @@ import ContextMenu from "components/ContextMenu";
 import { StyledList, StyledLink } from "./styled";
 
 function Lists({ options, onDelete }) {
+	if (!options.length) {
+		return null;
+	}
+
 	return (
 		<div>
 			{options.map((option) => (
