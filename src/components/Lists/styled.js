@@ -1,17 +1,12 @@
 import styled from "styled-components";
 import { Link } from "@reach/router";
 
-export const StyledList = styled.div`
+export const StyledList = styled.li`
 	border: 1px solid lightgrey;
-	margin-bottom: 10px;
 	padding: 10px;
 	display: grid;
 	grid-template-columns: 1fr auto;
 	grid-column-gap: 10px;
-
-	&:last-child {
-		margin-bottom: 0;
-	}
 `;
 
 export const StyledLink = styled(Link)`

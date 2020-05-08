@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ContextMenu from "components/ContextMenu";
+import Stack from "components/Stack";
 
 import { StyledList, StyledLink } from "./styled";
 
@@ -11,7 +12,7 @@ function Lists({ options, onDelete }) {
 	}
 
 	return (
-		<div>
+		<Stack space="sm" component="ul">
 			{options.map((option) => (
 				<StyledList key={`list-${option.id}`}>
 					<StyledLink to={option.link}>{option.name}</StyledLink>
@@ -19,7 +20,7 @@ function Lists({ options, onDelete }) {
 					<ContextMenu options={[{ text: "Delete", action: () => onDelete(option) }]} />
 				</StyledList>
 			))}
-		</div>
+		</Stack>
 	);
 }
 

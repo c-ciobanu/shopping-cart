@@ -1,12 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Lists /> Should render and match the snapshot 1`] = `
-<div>
-  <div
-    class="sc-AykKG hFqUOC"
+<ul
+  class="sc-AykKG hDmaOk"
+>
+  <li
+    class="sc-AykKH dolpls"
   >
     <a
-      class="sc-AykKH iYBAuN"
+      class="sc-AykKI gVWXMW"
       href="/lists/1"
     >
       Option 1
@@ -33,12 +35,12 @@ exports[`<Lists /> Should render and match the snapshot 1`] = `
         tabindex="-1"
       />
     </div>
-  </div>
-  <div
-    class="sc-AykKG hFqUOC"
+  </li>
+  <li
+    class="sc-AykKH dolpls"
   >
     <a
-      class="sc-AykKH iYBAuN"
+      class="sc-AykKI gVWXMW"
       href="/lists/2"
     >
       Option 2
@@ -65,12 +67,12 @@ exports[`<Lists /> Should render and match the snapshot 1`] = `
         tabindex="-1"
       />
     </div>
-  </div>
-  <div
-    class="sc-AykKG hFqUOC"
+  </li>
+  <li
+    class="sc-AykKH dolpls"
   >
     <a
-      class="sc-AykKH iYBAuN"
+      class="sc-AykKI gVWXMW"
       href="/lists/3"
     >
       Option 3
@@ -97,6 +99,6 @@ exports[`<Lists /> Should render and match the snapshot 1`] = `
         tabindex="-1"
       />
     </div>
-  </div>
-</div>
+  </li>
+</ul>
 `;
