@@ -4,34 +4,7 @@ import { styled } from "stitches.config";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ReactComponent as MoreIcon } from "assets/svg/more.svg";
 import InlineEntityCreation from "components/InlineEntityCreation";
-
-const Stack = styled("ul", {
-	display: "grid",
-	listStyleType: "none",
-	margin: 0,
-	padding: 0,
-
-	variants: {
-		spacing: {
-			none: {
-				rowGap: 0
-			},
-			small: {
-				rowGap: "$small"
-			},
-			medium: {
-				rowGap: "$medium"
-			},
-			large: {
-				rowGap: "$large"
-			}
-		}
-	}
-});
-
-Stack.defaultProps = {
-	spacing: "none"
-};
+import Stack from "components/Stack";
 
 const ShoppingList = styled("li", {
 	border: "1px solid lightgrey",
