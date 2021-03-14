@@ -11,7 +11,11 @@ export const { styled, css } = createStyled({
 		letterSpacings: {},
 		radii: {},
 		sizes: {},
-		space: {},
+		space: {
+			$small: "10px",
+			$medium: "20px",
+			$large: "30px"
+		},
 		zIndices: {}
 	},
 	breakpoints: {},
