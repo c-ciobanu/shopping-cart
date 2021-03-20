@@ -20,6 +20,12 @@ module.exports = {
 						ignoreRestSiblings: false
 					}
 				],
+				"@typescript-eslint/ban-ts-comment": [
+					"error",
+					{
+						"ts-ignore": "allow-with-description"
+					}
+				],
 				"import/order": [
 					"error",
 					{
