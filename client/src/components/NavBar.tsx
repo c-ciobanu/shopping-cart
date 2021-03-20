@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+
 import { ReactComponent as HomeIcon } from "assets/svg/home.svg";
 import { styled } from "stitches.config";
 

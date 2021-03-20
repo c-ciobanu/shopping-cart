@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { styled } from "stitches.config";
+
 import { ReactComponent as MoreIcon } from "assets/svg/more.svg";
+import Dropdown from "components/Dropdown";
 import InlineEntityCreation from "components/InlineEntityCreation";
 import Stack from "components/Stack";
-import Dropdown from "components/Dropdown";
+import { styled } from "stitches.config";
 
 const StyledListItem = styled("li", {
 	border: "1px solid lightgrey",

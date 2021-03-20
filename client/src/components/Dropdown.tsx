@@ -1,4 +1,5 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+
 import { styled } from "stitches.config";
 
 const StyledTrigger = styled(DropdownMenu.Trigger, {
