@@ -40,8 +40,10 @@ export default function Dropdown(props: Props): JSX.Element {
 			<StyledTrigger>{trigger}</StyledTrigger>
 
 			<StyledContent {...contentProps}>
-				{items.map((item) => (
-					<StyledItem onSelect={item.onClick}>{item.text}</StyledItem>
+				{items.map((item, index) => (
+					<StyledItem key={`dropdownItem${index}`} onSelect={item.onClick}>
+						{item.text}
+					</StyledItem>
 				))}
 			</StyledContent>
 		</DropdownMenu.Root>
