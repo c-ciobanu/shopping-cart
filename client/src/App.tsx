@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { styled } from "stitches.config";
 import Home from "pages/Home";
-import List from "pages/List";
+import ShoppingList from "pages/ShoppingList";
 import NavBar from "components/NavBar";
 
 import "sanitize.css";
@@ -22,7 +22,7 @@ export default function App(): JSX.Element {
 			<StyledMain>
 				<Switch>
 					<Route path="/lists/:id">
-						<List />
+						<ShoppingList />
 					</Route>
 
 					<Route path="/">
