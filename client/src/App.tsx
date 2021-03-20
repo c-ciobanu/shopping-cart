@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { styled } from "stitches.config";
+
+import NavBar from "components/NavBar";
 import Home from "pages/Home";
 import ShoppingList from "pages/ShoppingList";
-import NavBar from "components/NavBar";
+import { styled } from "stitches.config";
 
 import "sanitize.css";
 import "sanitize.css/typography.css";

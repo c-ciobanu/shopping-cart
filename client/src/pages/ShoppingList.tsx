@@ -1,11 +1,12 @@
-import { useState } from "react";
-import { Formik, Form, Field, FormikHelpers } from "formik";
-import { styled } from "stitches.config";
-import Stack from "components/Stack";
-import { ReactComponent as MoreIcon } from "assets/svg/more.svg";
-import { ReactComponent as CheckIcon } from "assets/svg/check.svg";
-import Dropdown from "components/Dropdown";
 import * as Checkbox from "@radix-ui/react-checkbox";
+import { Formik, Form, Field, FormikHelpers } from "formik";
+import { useState } from "react";
+
+import { ReactComponent as CheckIcon } from "assets/svg/check.svg";
+import { ReactComponent as MoreIcon } from "assets/svg/more.svg";
+import Dropdown from "components/Dropdown";
+import Stack from "components/Stack";
+import { styled } from "stitches.config";
 
 const StyledField = styled(Field, {
 	width: "100%",

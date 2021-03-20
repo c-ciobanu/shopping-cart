@@ -1,8 +1,9 @@
-import { styled } from "stitches.config";
-import { ReactComponent as PlusIcon } from "assets/svg/plus.svg";
-import { ReactComponent as CheckIcon } from "assets/svg/check.svg";
-import { useState } from "react";
 import { Field, Form, Formik } from "formik";
+import { useState } from "react";
+
+import { ReactComponent as CheckIcon } from "assets/svg/check.svg";
+import { ReactComponent as PlusIcon } from "assets/svg/plus.svg";
+import { styled } from "stitches.config";
 
 const StyledDiv = styled("div", {
 	display: "flex",
