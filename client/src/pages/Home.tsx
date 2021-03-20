@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "stitches.config";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ReactComponent as MoreIcon } from "assets/svg/more.svg";
 import InlineEntityCreation from "components/InlineEntityCreation";
 import Stack from "components/Stack";
+import Dropdown from "components/Dropdown";
 
-const ShoppingList = styled("li", {
+const StyledListItem = styled("li", {
 	border: "1px solid lightgrey",
 	padding: "10px",
 	display: "grid",
@@ -17,30 +17,6 @@ const ShoppingList = styled("li", {
 const StyledLink = styled(Link, {
 	color: "inherit",
 	textDecoration: "none"
-});
-
-const StyledDropdownTrigger = styled(DropdownMenu.Trigger, {
-	padding: 0,
-	border: 0,
-	outline: "none",
-	display: "flex"
-});
-
-const StyledDropdownContent = styled(DropdownMenu.Content, {
-	backgroundColor: "white",
-	border: "1px solid lightgrey",
-	minWidth: "150px"
-});
-
-const StyledDropdownItem = styled(DropdownMenu.Item, {
-	padding: "5px",
-	cursor: "default",
-
-	"&:focus": {
-		outline: "none",
-		backgroundColor: "lightgrey",
-		color: "white"
-	}
 });
 
 export default function Home(): JSX.Element {
@@ -59,19 +35,15 @@ export default function Home(): JSX.Element {
 			{shoppingLists.length ? (
 				<Stack spacing="small">
 					{shoppingLists.map(({ id, name }) => (
-						<ShoppingList key={`list-${id}`}>
+						<StyledListItem key={`shoppingList${id}`}>
 							<StyledLink to={`/lists/${id}`}>{name}</StyledLink>
 
-							<DropdownMenu.Root>
-								<StyledDropdownTrigger>
-									<MoreIcon />
-								</StyledDropdownTrigger>
-
-								<StyledDropdownContent side="left">
-									<StyledDropdownItem onSelect={() => deleteShoppingList(id)}>Delete</StyledDropdownItem>
-								</StyledDropdownContent>
-							</DropdownMenu.Root>
-						</ShoppingList>
+							<Dropdown
+								trigger={<MoreIcon />}
+								items={[{ text: "Delete", onClick: () => deleteShoppingList(id) }]}
+								contentProps={{ side: "left" }}
+							/>
+						</StyledListItem>
 					))}
 				</Stack>
 			) : null}
