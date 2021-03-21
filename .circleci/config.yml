@@ -1,33 +1,30 @@
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
-  aws-s3: circleci/aws-s3@1.0.15
+  node: circleci/node@4.2.0
+  aws-s3: circleci/aws-s3@2.0.0
 jobs:
-  test:
+  test-client:
     executor:
       name: node/default
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm ci
-      - run: npm run lint
-      - run: npm run test:all
-  build:
+      - node/install-packages:
+          app-dir: client
+      - run: cd client && npm run test:all
+  build-client:
     executor:
       name: node/default
     working_directory: ~/shopping-cart
     steps:
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm ci
-      - run: npm run build
+      - node/install-packages:
+          app-dir: client
+      - run: cd client && npm run build
       - persist_to_workspace:
           root: .
           paths:
-            - build
-  deploy:
+            - client/build
+  deploy-client:
     docker:
       - image: "cimg/python:3.6"
     working_directory: ~/shopping-cart
@@ -36,19 +33,22 @@ jobs:
       - attach_workspace:
           at: ~/shopping-cart
       - aws-s3/sync:
-          from: build
+          from: client/build
           to: "s3://$S3_BUCKET_NAME"
-          overwrite: true
+          arguments: --delete
 workflows:
-  build-and-deploy:
+  build-and-deploy-client:
     jobs:
-      - test
-      - build:
+      - test-client
+      - build-client:
           requires:
-            - test
-      - deploy:
+            - test-client
+          filters:
+            branches:
+              only: master
+      - deploy-client:
           requires:
-            - build
+            - build-client
           filters:
             branches:
               only: master
