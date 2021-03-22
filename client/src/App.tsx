@@ -1,9 +1,11 @@
+import { Provider } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import NavBar from "components/NavBar";
 import Home from "pages/Home";
 import ShoppingList from "pages/ShoppingList";
 import { styled } from "stitches.config";
+import store from "store";
 
 import "sanitize.css";
 import "sanitize.css/typography.css";
@@ -17,20 +19,22 @@ const StyledMain = styled("main", {
 
 export default function App(): JSX.Element {
 	return (
-		<Router>
-			<NavBar />
+		<Provider store={store}>
+			<Router>
+				<NavBar />
 
-			<StyledMain>
-				<Switch>
-					<Route path="/lists/:id">
-						<ShoppingList />
-					</Route>
+				<StyledMain>
+					<Switch>
+						<Route path="/lists/:id">
+							<ShoppingList />
+						</Route>
 
-					<Route path="/">
-						<Home />
-					</Route>
-				</Switch>
-			</StyledMain>
-		</Router>
+						<Route path="/">
+							<Home />
+						</Route>
+					</Switch>
+				</StyledMain>
+			</Router>
+		</Provider>
 	);
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { ReactComponent as MoreIcon } from "assets/svg/more.svg";
@@ -6,6 +6,7 @@ import Dropdown from "components/Dropdown";
 import InlineEntityCreation from "components/InlineEntityCreation";
 import Stack from "components/Stack";
 import { styled } from "stitches.config";
+import { addShoppingList, removeShoppingList, selectShoppingLists } from "store/slices/shoppingLists";
 
 const StyledListItem = styled("li", {
 	border: "1px solid lightgrey",
@@ -21,15 +22,8 @@ const StyledLink = styled(Link, {
 });
 
 export default function Home(): JSX.Element {
-	const [shoppingLists, setShoppingLists] = useState<Array<{ id: number; name: string }>>([]);
-
-	const deleteShoppingList = (id: number) => {
-		setShoppingLists((state) => state.filter((item) => item.id !== id));
-	};
-
-	const addShoppingList = (name: string) => {
-		setShoppingLists((state) => state.concat({ id: (state[state.length - 1]?.id ?? 0) + 1, name }));
-	};
+	const dispatch = useDispatch();
+	const shoppingLists = useSelector(selectShoppingLists);
 
 	return (
 		<Stack spacing="medium">
@@ -41,7 +35,7 @@ export default function Home(): JSX.Element {
 
 							<Dropdown
 								trigger={<MoreIcon />}
-								items={[{ text: "Delete", onClick: () => deleteShoppingList(id) }]}
+								items={[{ text: "Delete", onClick: () => dispatch(removeShoppingList(id)) }]}
 								contentProps={{ side: "left" }}
 							/>
 						</StyledListItem>
@@ -52,7 +46,7 @@ export default function Home(): JSX.Element {
 			<InlineEntityCreation
 				title="Create new shopping list"
 				placeholder="New shopping list name"
-				onSubmit={addShoppingList}
+				onSubmit={(name) => dispatch(addShoppingList(name))}
 			/>
 		</Stack>
 	);
