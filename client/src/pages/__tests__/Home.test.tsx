@@ -1,21 +1,13 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
-import { Provider } from "react-redux";
-import { MemoryRouter } from "react-router-dom";
 
 import Home from "pages/Home";
-import store from "store";
+import { renderWithStoreAndRouter } from "testUtils";
 
 describe("Home", () => {
-	const Wrapper: React.FunctionComponent = ({ children }) => (
-		<Provider store={store}>
-			<MemoryRouter>{children}</MemoryRouter>
-		</Provider>
-	);
-
 	it("should add a shopping list correcly", async () => {
-		render(<Home />, { wrapper: Wrapper });
+		renderWithStoreAndRouter(<Home />);
 
 		userEvent.click(screen.getByRole("button", { name: "Create new shopping list" }));
 
@@ -29,9 +21,9 @@ describe("Home", () => {
 	});
 
 	it("should delete a shopping list correcly", async () => {
-		render(<Home />, { wrapper: Wrapper });
-
-		expect(screen.getByText("Shopping List 1")).toBeInTheDocument();
+		renderWithStoreAndRouter(<Home />, {
+			initialState: { shoppingLists: [{ id: 1, name: "Shopping List 1", items: [] }] }
+		});
 
 		userEvent.click(screen.getByRole("button", { name: "more.svg" }));
 

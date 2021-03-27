@@ -9,7 +9,7 @@ import reducer, {
 } from "store/slices/shoppingLists";
 
 describe("reducer", () => {
-	it("should handle initial state correctly", () => {
+	it("should return the initial state", () => {
 		expect(reducer(undefined, {} as AnyAction)).toEqual([]);
 	});
 
