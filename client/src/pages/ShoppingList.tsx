@@ -1,12 +1,14 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
 import { Formik, Form, Field, FormikHelpers } from "formik";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect, useParams } from "react-router-dom";
 
 import { ReactComponent as CheckIcon } from "assets/svg/check.svg";
 import { ReactComponent as MoreIcon } from "assets/svg/more.svg";
 import Dropdown from "components/Dropdown";
 import Stack from "components/Stack";
 import { styled } from "stitches.config";
+import { selectShoppingList, addShoppingListItem, removeShoppingListItem } from "store/slices/shoppingLists";
 
 const StyledField = styled(Field, {
 	width: "100%",
@@ -60,35 +62,38 @@ const StyledLabel = styled("label", {
 });
 
 type FormValues = {
-	listName: string;
+	itemName: string;
 };
 
 export default function ShoppingList(): JSX.Element {
-	const [items, setItems] = useState<Array<{ id: number; name: string }>>([]);
+	const { id } = useParams<{ id: string }>();
+	const shoppingListId = JSON.parse(id);
+	const shoppingList = useSelector(selectShoppingList)(shoppingListId);
+	const dispatch = useDispatch();
 
-	const addShoppingListItem = async (values: FormValues, actions: FormikHelpers<FormValues>) => {
-		const { listName } = values;
+	if (!shoppingList) {
+		return <Redirect to="/" />;
+	}
 
-		setItems((state) => state.concat({ id: (state[state.length - 1]?.id ?? 0) + 1, name: listName }));
+	const handleFormSubmit = async (values: FormValues, actions: FormikHelpers<FormValues>) => {
+		const { itemName } = values;
+
+		dispatch(addShoppingListItem({ shoppingListId, itemName }));
 
 		actions.resetForm();
 	};
 
-	const deleteShoppingListItem = (id: number) => {
-		setItems((state) => state.filter((item) => item.id !== id));
-	};
-
 	return (
 		<>
-			<Formik initialValues={{ listName: "" }} onSubmit={addShoppingListItem}>
+			<Formik initialValues={{ itemName: "" }} onSubmit={handleFormSubmit}>
 				<Form>
-					<StyledField id="listName" name="listName" placeholder="Add new item" required />
+					<StyledField id="itemName" name="itemName" placeholder="Add new item" required />
 				</Form>
 			</Formik>
 
-			{items.length ? (
+			{shoppingList.items.length ? (
 				<StyledStack>
-					{items.map(({ id, name }) => (
+					{shoppingList.items.map(({ id, name }) => (
 						<StyledListItem key={`listItem${id}`}>
 							<StyledCheckbox id={`listItem${id}`}>
 								<Checkbox.Indicator as={CheckIcon} />
@@ -98,7 +103,9 @@ export default function ShoppingList(): JSX.Element {
 
 							<Dropdown
 								trigger={<MoreIcon />}
-								items={[{ text: "Delete", onClick: () => deleteShoppingListItem(id) }]}
+								items={[
+									{ text: "Delete", onClick: () => dispatch(removeShoppingListItem({ shoppingListId, itemId: id })) }
+								]}
 								contentProps={{ side: "left" }}
 							/>
 						</StyledListItem>

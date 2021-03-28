@@ -1,6 +1,5 @@
 import { combineReducers, createStore } from "@reduxjs/toolkit";
 import { render, RenderResult } from "@testing-library/react";
-import React from "react";
 import { Provider } from "react-redux";
 import { MemoryRouter } from "react-router-dom";
 
@@ -13,14 +12,16 @@ export const renderWithRouter = (ui: React.ReactElement): RenderResult => {
 
 export const renderWithStoreAndRouter = (
 	ui: React.ReactElement,
-	{ initialState }: { initialState?: storeState } = {}
+	options: { initialState?: storeState; location?: string } = {}
 ): RenderResult => {
+	const { initialState, location = "/" } = options;
+
 	const rootReducer = combineReducers({ shoppingLists: shoppingListsReducer });
 	const store = createStore(rootReducer, initialState);
 
 	const Wrapper: React.FunctionComponent = ({ children }) => (
 		<Provider store={store}>
-			<MemoryRouter>{children}</MemoryRouter>
+			<MemoryRouter initialEntries={[location]}>{children}</MemoryRouter>
 		</Provider>
 	);
 

@@ -1,12 +1,23 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { act } from "react-dom/test-utils";
+import { Route } from "react-router-dom";
 
 import ShoppingList from "pages/ShoppingList";
+import { renderWithStoreAndRouter } from "testUtils";
 
 describe("ShoppingList", () => {
+	const ComponentToRender = () => (
+		<Route path="lists/:id">
+			<ShoppingList />
+		</Route>
+	);
+
 	it("should add a list item correcly", async () => {
-		render(<ShoppingList />);
+		renderWithStoreAndRouter(<ComponentToRender />, {
+			initialState: { shoppingLists: [{ id: 1, name: "Shopping List 1", items: [] }] },
+			location: "lists/1"
+		});
 
 		userEvent.type(screen.getByPlaceholderText("Add new item"), "List Item 1");
 
@@ -17,24 +28,29 @@ describe("ShoppingList", () => {
 		expect(screen.getByText("List Item 1")).toBeInTheDocument();
 	});
 
-	it("should delete a shopping list correcly", async () => {
-		render(<ShoppingList />);
-
-		userEvent.type(screen.getByPlaceholderText("Add new item"), "List Item 1");
-
-		await act(async () => {
-			fireEvent.submit(screen.getByPlaceholderText("Add new item"));
+	it("should delete a list item correcly", async () => {
+		renderWithStoreAndRouter(<ComponentToRender />, {
+			initialState: { shoppingLists: [{ id: 1, name: "Shopping List 1", items: [{ id: 1, name: "List Item 1" }] }] },
+			location: "lists/1"
 		});
 
-		expect(screen.getByText("List Item 1")).toBeInTheDocument();
-
-		// FIXME: Warning: An update to Formik inside a test was not wrapped in act(...).
-		await act(async () => {
-			userEvent.click(screen.getByRole("button", { name: "more.svg" }));
-		});
+		userEvent.click(screen.getByRole("button", { name: "more.svg" }));
 
 		userEvent.click(screen.getByText("Delete"));
 
 		expect(screen.queryByText("List Item 1")).not.toBeInTheDocument();
+	});
+
+	it("should redirect to homepage if there is no shopping list", async () => {
+		renderWithStoreAndRouter(
+			<>
+				<ComponentToRender />
+
+				<Route path="/">Homepage</Route>
+			</>,
+			{ location: "lists/1" }
+		);
+
+		expect(screen.queryByText("Homepage")).toBeInTheDocument();
 	});
 });
