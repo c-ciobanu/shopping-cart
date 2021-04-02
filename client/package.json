@@ -6,7 +6,10 @@
 		"dev": "react-scripts start",
 		"build": "react-scripts build",
 		"test:watch": "react-scripts test",
-		"test:all": "react-scripts test --coverage --watchAll=false"
+		"test:all": "react-scripts test --coverage --watchAll=false",
+		"test:types": "tsc --noEmit",
+		"lint": "eslint src --ext .ts,.tsx",
+		"lint:fix": "eslint src --ext .ts,.tsx --fix"
 	},
 	"dependencies": {
 		"@radix-ui/react-checkbox": "0.0.7",
