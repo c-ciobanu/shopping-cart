@@ -11,6 +11,7 @@ type ShoppingList = {
 type ShoppingListItem = {
 	id: number;
 	name: string;
+	checked: boolean;
 };
 
 const initialState: Array<ShoppingList> = [];
@@ -38,7 +39,7 @@ const { actions, reducer } = createSlice({
 
 			const newItemId = (shoppingList.items[shoppingList.items.length - 1]?.id ?? 0) + 1;
 
-			shoppingList.items.push({ id: newItemId, name: itemName });
+			shoppingList.items.push({ id: newItemId, name: itemName, checked: false });
 		},
 		removeShoppingListItem(state, action: PayloadAction<{ shoppingListId: number; itemId: number }>) {
 			const { shoppingListId, itemId } = action.payload;
@@ -50,6 +51,23 @@ const { actions, reducer } = createSlice({
 			}
 
 			shoppingList.items = shoppingList.items.filter((item) => item.id !== itemId);
+		},
+		toggleShoppingListItem(state, action: PayloadAction<{ shoppingListId: number; itemId: number }>) {
+			const { shoppingListId, itemId } = action.payload;
+
+			const shoppingList = state.find((shoppingList) => shoppingList.id === shoppingListId);
+
+			if (!shoppingList) {
+				return state;
+			}
+
+			const shoppingListItem = shoppingList.items.find((item) => item.id === itemId);
+
+			if (!shoppingListItem) {
+				return state;
+			}
+
+			shoppingListItem.checked = !shoppingListItem.checked;
 		}
 	}
 });
@@ -61,6 +79,12 @@ export const selectShoppingList = createSelector(selectShoppingLists, (shoppingL
 		shoppingLists.find((shoppingList) => shoppingList.id === shoppingListId);
 });
 
-export const { addShoppingList, removeShoppingList, addShoppingListItem, removeShoppingListItem } = actions;
+export const {
+	addShoppingList,
+	removeShoppingList,
+	addShoppingListItem,
+	removeShoppingListItem,
+	toggleShoppingListItem
+} = actions;
 
 export default reducer;

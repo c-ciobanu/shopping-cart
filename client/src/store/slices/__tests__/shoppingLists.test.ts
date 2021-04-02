@@ -5,7 +5,8 @@ import reducer, {
 	removeShoppingList,
 	selectShoppingList,
 	addShoppingListItem,
-	removeShoppingListItem
+	removeShoppingListItem,
+	toggleShoppingListItem
 } from "store/slices/shoppingLists";
 
 describe("reducer", () => {
@@ -42,27 +43,56 @@ describe("reducer", () => {
 						type: addShoppingListItem.type,
 						payload: { shoppingListId: 1, itemName: "List Item 1" }
 					})
-				).toEqual([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1" }] }]);
+				).toEqual([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }]);
 			});
 		});
 
 		describe("removeShoppingListItem", () => {
 			it("should not remove shopping list item if the shopping list does not exist", () => {
 				expect(
-					reducer([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1" }] }], {
+					reducer([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }], {
 						type: removeShoppingListItem.type,
 						payload: { shoppingListId: 2, itemId: 1 }
 					})
-				).toEqual([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1" }] }]);
+				).toEqual([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }]);
 			});
 
 			it("should remove shopping list item correctly", () => {
 				expect(
-					reducer([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1" }] }], {
+					reducer([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }], {
 						type: removeShoppingListItem.type,
 						payload: { shoppingListId: 1, itemId: 1 }
 					})
 				).toEqual([{ id: 1, name: "List 1", items: [] }]);
+			});
+		});
+
+		describe("toggleShoppingListItem", () => {
+			it("should not toggle shopping list item if the shopping list does not exist", () => {
+				expect(
+					reducer([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }], {
+						type: toggleShoppingListItem.type,
+						payload: { shoppingListId: 2, itemId: 1 }
+					})
+				).toEqual([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }]);
+			});
+
+			it("should not toggle shopping list item if the shopping list item does not exist", () => {
+				expect(
+					reducer([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }], {
+						type: toggleShoppingListItem.type,
+						payload: { shoppingListId: 1, itemId: 2 }
+					})
+				).toEqual([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }]);
+			});
+
+			it("should toggle shopping list item correctly", () => {
+				expect(
+					reducer([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }], {
+						type: toggleShoppingListItem.type,
+						payload: { shoppingListId: 1, itemId: 1 }
+					})
+				).toEqual([{ id: 1, name: "List 1", items: [{ id: 1, name: "List Item 1", checked: true }] }]);
 			});
 		});
 	});
