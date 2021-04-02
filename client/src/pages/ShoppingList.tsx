@@ -8,7 +8,12 @@ import { ReactComponent as MoreIcon } from "assets/svg/more.svg";
 import Dropdown from "components/Dropdown";
 import Stack from "components/Stack";
 import { styled } from "stitches.config";
-import { selectShoppingList, addShoppingListItem, removeShoppingListItem } from "store/slices/shoppingLists";
+import {
+	selectShoppingList,
+	addShoppingListItem,
+	removeShoppingListItem,
+	toggleShoppingListItem
+} from "store/slices/shoppingLists";
 
 const StyledField = styled(Field, {
 	width: "100%",
@@ -93,9 +98,12 @@ export default function ShoppingList(): JSX.Element {
 
 			{shoppingList.items.length ? (
 				<StyledStack>
-					{shoppingList.items.map(({ id, name }) => (
+					{shoppingList.items.map(({ id, name, checked }) => (
 						<StyledListItem key={`listItem${id}`}>
-							<StyledCheckbox id={`listItem${id}`}>
+							<StyledCheckbox
+								id={`listItem${id}`}
+								defaultChecked={checked}
+								onCheckedChange={() => dispatch(toggleShoppingListItem({ shoppingListId, itemId: id }))}>
 								<Checkbox.Indicator as={CheckIcon} />
 							</StyledCheckbox>
 

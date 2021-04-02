@@ -30,7 +30,9 @@ describe("ShoppingList", () => {
 
 	it("should delete a list item correcly", async () => {
 		renderWithStoreAndRouter(<ComponentToRender />, {
-			initialState: { shoppingLists: [{ id: 1, name: "Shopping List 1", items: [{ id: 1, name: "List Item 1" }] }] },
+			initialState: {
+				shoppingLists: [{ id: 1, name: "Shopping List 1", items: [{ id: 1, name: "List Item 1", checked: false }] }]
+			},
 			location: "lists/1"
 		});
 
@@ -39,6 +41,21 @@ describe("ShoppingList", () => {
 		userEvent.click(screen.getByText("Delete"));
 
 		expect(screen.queryByText("List Item 1")).not.toBeInTheDocument();
+	});
+
+	it("should toggle a list item correcly", async () => {
+		renderWithStoreAndRouter(<ComponentToRender />, {
+			initialState: {
+				shoppingLists: [{ id: 1, name: "Shopping List 1", items: [{ id: 1, name: "List Item 1", checked: true }] }]
+			},
+			location: "lists/1"
+		});
+
+		expect(screen.getByRole("checkbox")).toHaveAttribute("data-state", "checked");
+
+		userEvent.click(screen.getByText("List Item 1"));
+
+		expect(screen.getByRole("checkbox")).toHaveAttribute("data-state", "unchecked");
 	});
 
 	it("should redirect to homepage if there is no shopping list", async () => {
