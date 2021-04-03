@@ -103,7 +103,8 @@ export default function ShoppingList(): JSX.Element {
 							<StyledCheckbox
 								id={`listItem${id}`}
 								defaultChecked={checked}
-								onCheckedChange={() => dispatch(toggleShoppingListItem({ shoppingListId, itemId: id }))}>
+								onCheckedChange={() => dispatch(toggleShoppingListItem({ shoppingListId, itemId: id }))}
+							>
 								<Checkbox.Indicator as={CheckIcon} />
 							</StyledCheckbox>
 
