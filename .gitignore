@@ -11,6 +11,12 @@ coverage
 # production
 build
 
+# Serverless directories
+.serverless
+
+# webpack directories
+.webpack
+
 # misc
 .DS_Store
 .env.local
