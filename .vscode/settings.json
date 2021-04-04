@@ -4,6 +4,6 @@
   },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
-  "eslint.workingDirectories": ["client"],
+  "eslint.workingDirectories": ["client", "backend"],
   "typescript.validate.enable": true
 }
