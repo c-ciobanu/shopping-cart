@@ -25,6 +25,41 @@ const serverlessConfiguration: AWS = {
     lambdaHashingVersion: '20201221',
   },
   functions: { hello },
+  resources: {
+    Resources: {
+      CognitoUserPool: {
+        Type: "AWS::Cognito::UserPool",
+        Properties: {
+          UserPoolName: "shopping-cart-user-pool",
+          UsernameAttributes: ["email"],
+          AutoVerifiedAttributes: ["email"],
+          AccountRecoverySetting: {
+            RecoveryMechanisms: [{ Name: "verified_email", Priority: 1 }]
+          },
+        },
+      },
+      CognitoUserPoolClient: {
+        Type: "AWS::Cognito::UserPoolClient",
+        Properties: {
+          ClientName: "shopping-cart-user-pool-client",
+          UserPoolId: { Ref: "CognitoUserPool" },
+          PreventUserExistenceErrors: "ENABLED",
+          GenerateSecret: false,
+        },
+      },
+      CognitoUserPoolAuthorizer: {
+        Type: "AWS::ApiGateway::Authorizer",
+        Properties: {
+          Name: "CognitoUserPoolAuthorizer",
+          Type: "COGNITO_USER_POOLS",
+          IdentitySource: "method.request.header.Authorization",
+          RestApiId: { Ref: "ApiGatewayRestApi" },
+          ProviderARNs: [{ "Fn::GetAtt": ["CognitoUserPool", "Arn"] }],
+          AuthorizerResultTtlInSeconds: 300,
+        },
+      },
+    },
+  },
 };
 
 module.exports = serverlessConfiguration;

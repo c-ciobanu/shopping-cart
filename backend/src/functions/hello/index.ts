@@ -12,8 +12,12 @@ export default {
           schema: {
             'application/json': schema
           }
-        }
-      }
-    }
-  ]
-}
+        },
+        authorizer: {
+          type: "COGNITO_USER_POOLS",
+          authorizerId: { Ref: "CognitoUserPoolAuthorizer" },
+        },
+      },
+    },
+  ],
+};
