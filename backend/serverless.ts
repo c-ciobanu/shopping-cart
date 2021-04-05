@@ -1,5 +1,5 @@
 import type { AWS } from "@serverless/typescript";
-import hello from "functions/hello";
+import functions from "functions";
 
 const serverlessConfiguration: AWS = {
 	service: "backend",
@@ -45,7 +45,7 @@ const serverlessConfiguration: AWS = {
 			noPrependStageInUrl: true
 		}
 	},
-	functions: { hello },
+	functions,
 	resources: {
 		Resources: {
 			CognitoUserPool: {

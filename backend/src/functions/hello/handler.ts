@@ -1,16 +1,19 @@
 import "source-map-support/register";
 
-import type { ValidatedEventAPIGatewayProxyEvent } from "libs/apiGateway";
-import { formatJSONResponse } from "libs/apiGateway";
-import { middyfy } from "libs/lambda";
+import requestSchema from "functions/hello/schema";
+import type { APIGatewayProxyEventWithValidation, APIGatewayProxyEventResponse } from "libs/apiGateway";
+import { successResponse } from "libs/apiGateway";
+import { withMiddlewares } from "libs/lambda";
 
-import schema from "./schema";
+const handler = async (
+	event: APIGatewayProxyEventWithValidation<typeof requestSchema>
+): Promise<APIGatewayProxyEventResponse> => {
+	const { name } = event.body;
 
-const hello: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-	return formatJSONResponse({
-		message: `Hello ${event.body.name}, welcome to the exciting Serverless world!`,
+	return successResponse({
+		message: `Hello ${name}, welcome to the exciting Serverless world!`,
 		event
 	});
 };
 
-export const main = middyfy(hello);
+export default withMiddlewares(handler);
