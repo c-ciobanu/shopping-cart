@@ -1,19 +1,21 @@
 import "source-map-support/register";
 
-import requestSchema from "functions/hello/schema";
-import type { APIGatewayProxyEventWithValidation, APIGatewayProxyEventResponse } from "libs/apiGateway";
-import { successResponse } from "libs/apiGateway";
+import type { Body } from "functions/hello/requestSchema";
+import type { EventWithValidation, Response } from "libs/apiGateway";
 import { withMiddlewares } from "libs/lambda";
 
-const handler = async (
-	event: APIGatewayProxyEventWithValidation<typeof requestSchema>
-): Promise<APIGatewayProxyEventResponse> => {
+export const handler = async (
+	event: EventWithValidation<Body>
+): Promise<Response<{ message: string; event: EventWithValidation<Body> }>> => {
 	const { name } = event.body;
 
-	return successResponse({
-		message: `Hello ${name}, welcome to the exciting Serverless world!`,
-		event
-	});
+	return {
+		statusCode: 200,
+		body: {
+			message: `Hello ${name}, welcome to the exciting Serverless world!`,
+			event
+		}
+	};
 };
 
 export default withMiddlewares(handler);

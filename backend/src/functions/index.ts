@@ -1,4 +1,4 @@
-import helloHandlerRequestSchema from "./hello/schema";
+import { schema as helloHandlerRequestSchema } from "./hello/requestSchema";
 
 const authorizer = {
 	type: "COGNITO_USER_POOLS",
