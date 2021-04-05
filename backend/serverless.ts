@@ -4,16 +4,11 @@ import hello from "functions/hello";
 const serverlessConfiguration: AWS = {
 	service: "backend",
 	frameworkVersion: "2",
-	custom: {
-		webpack: {
-			webpackConfig: "./webpack.config.js",
-			includeModules: true
-		}
-	},
-	plugins: ["serverless-webpack", "serverless-offline"],
 	provider: {
 		name: "aws",
 		runtime: "nodejs14.x",
+		region: "eu-west-1",
+		endpointType: "REGIONAL",
 		apiGateway: {
 			minimumCompressionSize: 1024,
 			shouldStartNameWithService: true
@@ -22,6 +17,33 @@ const serverlessConfiguration: AWS = {
 			AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
 		},
 		lambdaHashingVersion: "20201221"
+	},
+	plugins: ["serverless-webpack", "serverless-offline", "serverless-prune-plugin", "serverless-domain-manager"],
+	custom: {
+		webpack: {
+			webpackConfig: "./webpack.config.js",
+			includeModules: true
+		},
+		prune: {
+			automatic: true,
+			includeLayers: true,
+			number: 3
+		},
+		customDomain: {
+			domainName: "api.c-ciobanu.com",
+			basePath: "shopping-cart",
+			certificateName: "*.c-ciobanu.com",
+			createRoute53Record: true,
+			endpointType: "regional",
+			apiType: "rest",
+			securityPolicy: "tls_1_2",
+			autoDomain: true
+		},
+		"serverless-offline": {
+			httpPort: 4000,
+			prefix: "shopping-cart",
+			noPrependStageInUrl: true
+		}
 	},
 	functions: { hello },
 	resources: {

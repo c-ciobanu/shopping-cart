@@ -6,8 +6,8 @@
 		"node": ">=14.15.0"
 	},
 	"scripts": {
-		"dev": "sls offline start --httpPort 4000",
-		"deploy": "sls deploy",
+		"dev": "sls offline start -s dev",
+		"deploy": "sls deploy -s prod -v",
 		"test:types": "tsc --noEmit",
 		"lint": "eslint . --ext .js,.ts",
 		"lint:fix": "eslint . --ext .js,.ts --fix"
@@ -30,7 +30,9 @@
 		"json-schema-to-ts": "^1.5.0",
 		"prettier": "^2.2.1",
 		"serverless": "^2.23.0",
+		"serverless-domain-manager": "^5.1.0",
 		"serverless-offline": "^6.9.0",
+		"serverless-prune-plugin": "^1.4.4",
 		"serverless-webpack": "^5.3.5",
 		"ts-loader": "^8.0.15",
 		"ts-node": "^9.1.1",
