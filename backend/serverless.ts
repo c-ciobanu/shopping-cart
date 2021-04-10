@@ -14,9 +14,25 @@ const serverlessConfiguration: AWS = {
 			shouldStartNameWithService: true
 		},
 		environment: {
-			AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1"
+			AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
+			API_GATEWAY_MANAGEMENT_API_ENDPOINT: {
+				"Fn::Join": [
+					"",
+					[
+						{ Ref: "WebsocketsApi" },
+						".execute-api.${opt:region, self:provider.region}.amazonaws.com/${opt:stage, self:provider.stage}"
+					]
+				]
+			}
 		},
-		lambdaHashingVersion: "20201221"
+		lambdaHashingVersion: "20201221",
+		iamRoleStatements: [
+			{
+				Effect: "Allow",
+				Action: ["execute-api:ManageConnections"],
+				Resource: ["arn:aws:execute-api:*:*:*/*/@connections/*"]
+			}
+		]
 	},
 	plugins: ["serverless-webpack", "serverless-offline", "serverless-prune-plugin", "serverless-domain-manager"],
 	custom: {
@@ -30,19 +46,21 @@ const serverlessConfiguration: AWS = {
 			number: 3
 		},
 		customDomain: {
-			domainName: "api.c-ciobanu.com",
-			basePath: "shopping-cart",
-			certificateName: "*.c-ciobanu.com",
-			createRoute53Record: true,
-			endpointType: "regional",
-			apiType: "rest",
-			securityPolicy: "tls_1_2",
-			autoDomain: true
-		},
+				domainName: "api.c-ciobanu.com",
+				basePath: "shopping-cart",
+				certificateName: "*.c-ciobanu.com",
+				createRoute53Record: true,
+				endpointType: "regional",
+				apiType: "rest",
+				securityPolicy: "tls_1_2",
+				autoDomain: true
+			},
 		"serverless-offline": {
 			httpPort: 4000,
 			prefix: "shopping-cart",
-			noPrependStageInUrl: true
+			noPrependStageInUrl: true,
+			websocketPort: 4001,
+			lambdaPort: 4002
 		}
 	},
 	functions,

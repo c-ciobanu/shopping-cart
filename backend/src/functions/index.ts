@@ -22,6 +22,36 @@ const functions = {
 				}
 			}
 		]
+	},
+	websocketConnection: {
+		handler: `src/functions/websocketConnection/handler.default`,
+		events: [
+			{
+				websocket: {
+					route: "$connect"
+				}
+			},
+			{
+				websocket: {
+					route: "$disconnect"
+				}
+			},
+			{
+				websocket: {
+					route: "$default"
+				}
+			}
+		]
+	},
+	websocketActions: {
+		handler: `src/functions/websocketActions/handler.default`,
+		events: [
+			{
+				websocket: {
+					route: "sendMessage"
+				}
+			}
+		]
 	}
 };
 
