@@ -46,6 +46,7 @@ const serverlessConfiguration: AWS = {
 			number: 3
 		},
 		customDomain: {
+			rest: {
 				domainName: "api.c-ciobanu.com",
 				basePath: "shopping-cart",
 				certificateName: "*.c-ciobanu.com",
@@ -55,6 +56,17 @@ const serverlessConfiguration: AWS = {
 				securityPolicy: "tls_1_2",
 				autoDomain: true
 			},
+			websocket: {
+				domainName: "ws.c-ciobanu.com",
+				basePath: "shopping-cart",
+				certificateName: "*.c-ciobanu.com",
+				createRoute53Record: true,
+				endpointType: "regional",
+				apiType: "websocket",
+				securityPolicy: "tls_1_2",
+				autoDomain: true
+			}
+		},
 		"serverless-offline": {
 			httpPort: 4000,
 			prefix: "shopping-cart",
