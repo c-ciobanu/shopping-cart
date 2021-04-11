@@ -1,7 +1,6 @@
 const path = require("path");
 
 const slsw = require("serverless-webpack");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
 const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
@@ -10,10 +9,11 @@ module.exports = {
 	entry: slsw.lib.entries,
 	devtool: slsw.lib.webpack.isLocal ? "eval-cheap-module-source-map" : "source-map",
 	resolve: {
-		extensions: [".mjs", ".json", ".ts"],
+		extensions: [".json", ".js"],
 		symlinks: false,
 		cacheWithContext: false,
-		plugins: [new TsconfigPathsPlugin()]
+		plugins: [],
+		modules: ["src"]
 	},
 	output: {
 		libraryTarget: "commonjs",
@@ -26,23 +26,7 @@ module.exports = {
 	target: "node",
 	externals: [nodeExternals()],
 	module: {
-		rules: [
-			{
-				test: /\.(tsx?)$/,
-				loader: "ts-loader",
-				exclude: [
-					[
-						path.resolve(__dirname, "node_modules"),
-						path.resolve(__dirname, ".serverless"),
-						path.resolve(__dirname, ".webpack")
-					]
-				],
-				options: {
-					transpileOnly: true,
-					experimentalWatchApi: true
-				}
-			}
-		]
+		rules: []
 	},
 	plugins: []
 };

@@ -1,9 +1,8 @@
 import middy from "@middy/core";
 import httpJsonBodyParser from "@middy/http-json-body-parser";
 import httpResponseSerializer from "@middy/http-response-serializer";
-import type { Handler } from "aws-lambda";
 
-export const withMiddlewares = (handler: Handler): Handler => {
+export const withMiddlewares = (handler) => {
 	const middlewares = [
 		httpJsonBodyParser(),
 		httpResponseSerializer({

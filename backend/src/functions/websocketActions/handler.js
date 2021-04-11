@@ -1,9 +1,6 @@
-import "source-map-support/register";
-
-import type { APIGatewayProxyEvent, APIGatewayProxyResultV2 } from "aws-lambda";
 import { postToWebsocketConenction } from "libs/apiGateway";
 
-export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResultV2> => {
+export const handler = async (event) => {
 	const { requestContext, body } = event;
 	const { connectionId, routeKey } = requestContext;
 
@@ -11,7 +8,8 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 		case "sendMessage":
 			console.log({ connectionId });
 
-			await postToWebsocketConenction(connectionId as string, `sendMessage echo: ${body}`);
+			await postToWebsocketConenction(connectionId, `sendMessage echo: ${body}`);
+			break;
 
 		default:
 			break;
