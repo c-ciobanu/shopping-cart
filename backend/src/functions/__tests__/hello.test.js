@@ -1,4 +1,4 @@
-import { handler } from "functions/hello/handler";
+import { handler } from "functions/hello";
 
 describe("hello", () => {
 	it("should successfully return 200", async () => {

@@ -13,8 +13,6 @@ export const handler = async (event) => {
 
 		case "$default":
 		default:
-			console.log({ connectionId });
-
 			await postToWebsocketConenction(connectionId, `$default echo: ${body}`);
 	}
 

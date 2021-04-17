@@ -74,7 +74,7 @@
 	},
 	"functions": {
 		"hello": {
-			"handler": "src/functions/hello/handler.default",
+			"handler": "src/functions/hello.default",
 			"events": [
 				{
 					"http": {
@@ -82,7 +82,7 @@
 						"path": "hello",
 						"request": {
 							"schema": {
-								"application/json": "${file(src/functions/hello/requestSchema.json)}"
+								"application/json": "${file(src/functions/requestSchemas/hello.json)}"
 							}
 						},
 						"authorizer": {
@@ -94,7 +94,7 @@
 			]
 		},
 		"websocketConnection": {
-			"handler": "src/functions/websocketConnection/handler.default",
+			"handler": "src/functions/websocketConnection.default",
 			"events": [
 				{
 					"websocket": {
@@ -114,7 +114,7 @@
 			]
 		},
 		"websocketActions": {
-			"handler": "src/functions/websocketActions/handler.default",
+			"handler": "src/functions/websocketActions.default",
 			"events": [
 				{
 					"websocket": {
