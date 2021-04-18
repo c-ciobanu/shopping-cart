@@ -14,7 +14,13 @@
 		"test:watch": "jest --watch",
 		"test:all": "jest --coverage",
 		"lint": "eslint . --ext .js,.ts",
-		"lint:fix": "eslint . --ext .js,.ts --fix"
+		"lint:fix": "eslint . --ext .js,.ts --fix",
+		"predev": "docker-compose up -d && npm run db:setup",
+		"pretest:watch": "docker-compose up -d",
+		"pretest:all": "docker-compose up -d",
+		"postdev": "docker-compose stop",
+		"posttest:watch": "docker-compose stop",
+		"posttest:all": "docker-compose stop"
 	},
 	"dependencies": {
 		"@aws-sdk/client-apigatewaymanagementapi": "^3.12.0",

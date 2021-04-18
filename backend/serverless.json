@@ -74,16 +74,16 @@
 		}
 	},
 	"functions": {
-		"hello": {
-			"handler": "src/functions/hello.default",
+		"createShoppingList": {
+			"handler": "src/functions/createShoppingList.default",
 			"events": [
 				{
 					"http": {
 						"method": "post",
-						"path": "hello",
+						"path": "lists",
 						"request": {
 							"schema": {
-								"application/json": "${file(src/functions/requestSchemas/hello.json)}"
+								"application/json": "${file(src/functions/requestSchemas/createShoppingList.json)}"
 							}
 						},
 						"authorizer": {

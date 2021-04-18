@@ -3,7 +3,7 @@ import { createShoppingListModel } from "db/models/shoppinglist";
 import { createShoppingListItemModel } from "db/models/shoppinglistitem";
 import { Sequelize } from "sequelize";
 
-const config = dbConfigurations[process.env.STAGE];
+const config = dbConfigurations[process.env.STAGE || process.env.NODE_ENV];
 
 let sequelize;
 if (config.use_env_variable) {
