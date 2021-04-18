@@ -20,7 +20,8 @@
 						".execute-api.${opt:region, self:provider.region}.amazonaws.com/${opt:stage, self:provider.stage}"
 					]
 				]
-			}
+			},
+			"STAGE": "${opt:stage, self:provider.stage}"
 		},
 		"lambdaHashingVersion": "20201221",
 		"iamRoleStatements": [

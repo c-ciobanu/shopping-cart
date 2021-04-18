@@ -1,0 +1,10 @@
+{
+	"dev": {
+		"url": "postgres://user@localhost:5432/dev",
+		"dialect": "postgres"
+	},
+	"prod": {
+		"use_env_variable": "DB_CONNECTION_URI",
+		"dialect": "postgres"
+	}
+}
