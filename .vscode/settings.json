@@ -2,8 +2,6 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
   "eslint.workingDirectories": ["client", "backend"],
   "javascript.preferences.importModuleSpecifier": "non-relative",
   "typescript.validate.enable": true
