@@ -2,9 +2,11 @@ import { ShoppingList } from "db/index";
 import { withMiddlewares } from "libs/lambda";
 
 export const handler = async (event) => {
-	const { name } = event.body;
+	const { requestContext, body } = event;
+	const { authorizer } = requestContext;
+	const { name } = body;
 
-	const shoppingList = await ShoppingList.create({ name });
+	const shoppingList = await ShoppingList.create({ userId: authorizer.claims.sub, name });
 
 	return {
 		statusCode: 200,

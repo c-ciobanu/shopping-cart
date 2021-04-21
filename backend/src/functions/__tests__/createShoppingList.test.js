@@ -5,6 +5,7 @@ describe("createShoppingList", () => {
 	it("should create a new list and return it", async () => {
 		const response = await createShoppingList({
 			headers: { "Content-Type": "application/json" },
+			requestContext: { authorizer: { claims: { sub: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" } } },
 			body: JSON.stringify({ name: "Breakfast" })
 		});
 
@@ -22,13 +23,19 @@ describe("createShoppingList", () => {
 
 describe("handler", () => {
 	it("should successfully return 200", async () => {
-		const response = await handler({ body: { name: "Breakfast" } });
+		const response = await handler({
+			body: { name: "Breakfast" },
+			requestContext: { authorizer: { claims: { sub: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" } } }
+		});
 
 		expect(response.statusCode).toBe(200);
 	});
 
 	it("should return the newly created list", async () => {
-		const response = await handler({ body: { name: "Breakfast" } });
+		const response = await handler({
+			body: { name: "Breakfast" },
+			requestContext: { authorizer: { claims: { sub: "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" } } }
+		});
 
 		const newLists = await ShoppingList.findAll();
 

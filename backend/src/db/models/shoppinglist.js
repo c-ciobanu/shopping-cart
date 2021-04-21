@@ -15,9 +15,15 @@ export const createShoppingListModel = (sequelize, DataTypes) => {
 				allowNull: false,
 				primaryKey: true
 			},
+			userId: {
+				type: DataTypes.UUID,
+				allowNull: false,
+				unique: "uniqueUserIdName"
+			},
 			name: {
 				type: DataTypes.STRING,
-				allowNull: false
+				allowNull: false,
+				unique: "uniqueUserIdName"
 			}
 		},
 		{
