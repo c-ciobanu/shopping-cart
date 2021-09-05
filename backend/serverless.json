@@ -94,6 +94,21 @@
 				}
 			]
 		},
+		"deleteShoppingList": {
+			"handler": "src/functions/deleteShoppingList.default",
+			"events": [
+				{
+					"http": {
+						"method": "delete",
+						"path": "lists/{id}",
+						"authorizer": {
+							"type": "COGNITO_USER_POOLS",
+							"authorizerId": { "Ref": "CognitoUserPoolAuthorizer" }
+						}
+					}
+				}
+			]
+		},
 		"websocketConnection": {
 			"handler": "src/functions/websocketConnection.default",
 			"events": [
