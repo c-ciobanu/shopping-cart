@@ -1,8 +1,8 @@
 {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.workingDirectories": ["client", "backend"],
-  "javascript.preferences.importModuleSpecifier": "non-relative",
-  "typescript.validate.enable": true
+  "jest.autoRun": "off"
 }
