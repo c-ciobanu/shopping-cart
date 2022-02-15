@@ -1,14 +1,17 @@
+import { Container } from "@mui/material"
 import { Head, BlitzLayout } from "blitz"
 
 const Layout: BlitzLayout<{ title?: string }> = ({ title, children }) => {
   return (
     <>
       <Head>
-        <title>{title || "shopping-cart"}</title>
+        <title>{title || "Shopping Cart"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {children}
+      <Container maxWidth="sm">
+        <main>{children}</main>
+      </Container>
     </>
   )
 }

@@ -1,3 +1,4 @@
+import { CssBaseline } from "@mui/material"
 import { Document, Html, DocumentHead, Main, BlitzScript /*DocumentContext*/ } from "blitz"
 
 class MyDocument extends Document {
@@ -9,13 +10,25 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
-        <DocumentHead />
-        <body>
-          <Main />
-          <BlitzScript />
-        </body>
-      </Html>
+      <>
+        <CssBaseline />
+
+        <Html lang="en">
+          <DocumentHead>
+            <meta name="viewport" content="initial-scale=1, width=device-width" />
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+          </DocumentHead>
+
+          <body>
+            <Main />
+            <BlitzScript />
+          </body>
+        </Html>
+      </>
     )
   }
 }
