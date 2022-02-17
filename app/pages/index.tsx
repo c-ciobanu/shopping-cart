@@ -1,9 +1,10 @@
-import { BlitzPage, useMutation, Routes, useSession } from "blitz"
+import { BlitzPage, useMutation, Routes, useQuery } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import Button from "@mui/material/Button"
 import Link from "app/core/components/Link"
+import getLists from "app/lists/queries/getLists"
 
 type LoggedInProps = {
   currentUser: Exclude<ReturnType<typeof useCurrentUser>, null>
@@ -12,6 +13,9 @@ type LoggedInProps = {
 const LoggedIn = (props: LoggedInProps) => {
   const { currentUser } = props
   const [logoutMutation] = useMutation(logout)
+  const [lists] = useQuery(getLists, {
+    orderBy: { name: "asc" },
+  })
 
   return (
     <>
@@ -29,6 +33,12 @@ const LoggedIn = (props: LoggedInProps) => {
         <br />
         User role: <code>{currentUser.role}</code>
       </div>
+
+      <ul>
+        {lists.map((list) => (
+          <li key={list.id}>{list.name}</li>
+        ))}
+      </ul>
     </>
   )
 }
