@@ -36,7 +36,11 @@ const LoggedIn = (props: LoggedInProps) => {
 
       <ul>
         {lists.map((list) => (
-          <li key={list.id}>{list.name}</li>
+          <li key={list.id}>
+            <Link href={Routes.ShowListPage({ listId: list.id })}>
+              <a>{list.name}</a>
+            </Link>
+          </li>
         ))}
       </ul>
     </>
