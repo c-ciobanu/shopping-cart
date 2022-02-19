@@ -3,8 +3,9 @@ import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import Button from "@mui/material/Button"
-import Link from "app/core/components/Link"
+import Link, { BlitzLinkComposed } from "app/core/components/Link"
 import getLists from "app/lists/queries/getLists"
+import { Stack } from "@mui/material"
 
 type LoggedInProps = {
   currentUser: Exclude<ReturnType<typeof useCurrentUser>, null>
@@ -49,11 +50,15 @@ const LoggedIn = (props: LoggedInProps) => {
 
 const LoggedOut = () => {
   return (
-    <>
-      <Link href={Routes.SignupPage()}>Sign Up</Link>
-      <br />
-      <Link href={Routes.LoginPage()}>Login</Link>
-    </>
+    <Stack alignItems="center" justifyContent="center" height="100vh" spacing={2}>
+      <Button component={BlitzLinkComposed} to={Routes.SignupPage()} variant="contained">
+        Sign Up
+      </Button>
+
+      <Button component={BlitzLinkComposed} to={Routes.LoginPage()} variant="contained">
+        Login
+      </Button>
+    </Stack>
   )
 }
 
