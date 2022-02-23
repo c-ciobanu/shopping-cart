@@ -6,14 +6,8 @@ const DeleteList = z.object({
   id: z.number(),
 })
 
-export default resolver.pipe(
-  resolver.zod(DeleteList),
-  resolver.authorize(),
-  async ({ id }, ctx) => {
-    const { userId } = ctx.session
+export default resolver.pipe(resolver.zod(DeleteList), resolver.authorize(), async ({ id }) => {
+  const list = await db.list.delete({ where: { id } })
 
-    const list = await db.list.deleteMany({ where: { id, userId } })
-
-    return list
-  }
-)
+  return list
+})

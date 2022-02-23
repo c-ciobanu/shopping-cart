@@ -68,7 +68,11 @@ const ListSettingsMenu = (props: ListSettingsMenuProps) => {
             <EditIcon fontSize="small" />
           </ListItemIcon>
 
-          <ListItemText>Edit</ListItemText>
+          <ListItemText>
+            <Link href={Routes.EditListPage({ listId })} underline="none" color="inherit">
+              Edit
+            </Link>
+          </ListItemText>
         </MenuItem>
 
         <Divider component="li" />
