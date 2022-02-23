@@ -82,6 +82,6 @@ model Item {
   updatedAt DateTime @updatedAt
   name      String
 
-  list   List @relation(fields: [listId], references: [id])
+  list   List @relation(fields: [listId], references: [id], onDelete: Cascade)
   listId Int
 }

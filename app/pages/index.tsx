@@ -24,12 +24,15 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import { useState } from "react"
 import { Box } from "@mui/system"
+import deleteList from "app/lists/mutations/deleteList"
 
-const LoggedIn = () => {
-  const [logoutMutation] = useMutation(logout)
-  const [lists] = useQuery(getLists, {
-    orderBy: { name: "asc" },
-  })
+type ListSettingsMenuProps = {
+  listId: number
+  onDelete: () => Promise<void>
+}
+
+const ListSettingsMenu = (props: ListSettingsMenuProps) => {
+  const { listId, onDelete } = props
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
   const open = Boolean(anchorEl)
@@ -37,6 +40,64 @@ const LoggedIn = () => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => setAnchorEl(null)
+
+  return (
+    <Box>
+      <IconButton
+        aria-label="list settings"
+        id={`list-settings-button-${listId}`}
+        aria-controls={open ? `list-settings-menu-${listId}` : undefined}
+        aria-expanded={open ? "true" : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
+        <MoreVertIcon />
+      </IconButton>
+
+      <Menu
+        id={`list-settings-menu-${listId}`}
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": `list-settings-button-${listId}`,
+        }}
+      >
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon sx={{ minWidth: "30px !important" }}>
+            <EditIcon fontSize="small" />
+          </ListItemIcon>
+
+          <ListItemText>Edit</ListItemText>
+        </MenuItem>
+
+        <Divider component="li" />
+
+        <MenuItem
+          onClick={() => {
+            handleClose()
+
+            onDelete()
+          }}
+          sx={{ color: "error.main" }}
+        >
+          <ListItemIcon sx={{ minWidth: "30px !important" }}>
+            <DeleteIcon fontSize="small" color="error" />
+          </ListItemIcon>
+
+          <ListItemText>Delete</ListItemText>
+        </MenuItem>
+      </Menu>
+    </Box>
+  )
+}
+
+const LoggedIn = () => {
+  const [logoutMutation] = useMutation(logout)
+  const [lists, { setQueryData }] = useQuery(getLists, {
+    orderBy: { name: "asc" },
+  })
+  const [deleteListMutation] = useMutation(deleteList)
 
   return (
     <>
@@ -62,46 +123,17 @@ const LoggedIn = () => {
           <Card key={list.id} variant="outlined">
             <CardHeader
               action={
-                <Box>
-                  <IconButton
-                    aria-label="list settings"
-                    id="list-settings-button"
-                    aria-controls={open ? "list-settings-menu" : undefined}
-                    aria-expanded={open ? "true" : undefined}
-                    aria-haspopup="true"
-                    onClick={handleClick}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
+                <ListSettingsMenu
+                  listId={list.id}
+                  onDelete={async () => {
+                    await deleteListMutation({ id: list.id })
 
-                  <Menu
-                    id="list-settings-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                      "aria-labelledby": "list-settings-button",
-                    }}
-                  >
-                    <MenuItem onClick={handleClose}>
-                      <ListItemIcon sx={{ minWidth: "30px !important" }}>
-                        <EditIcon fontSize="small" />
-                      </ListItemIcon>
-
-                      <ListItemText>Edit</ListItemText>
-                    </MenuItem>
-
-                    <Divider component="li" />
-
-                    <MenuItem onClick={handleClose} sx={{ color: "error.main" }}>
-                      <ListItemIcon sx={{ minWidth: "30px !important" }}>
-                        <DeleteIcon fontSize="small" color="error" />
-                      </ListItemIcon>
-
-                      <ListItemText>Delete</ListItemText>
-                    </MenuItem>
-                  </Menu>
-                </Box>
+                    setQueryData(
+                      lists.filter((l) => l.id !== list.id),
+                      { refetch: false }
+                    )
+                  }}
+                />
               }
               title={
                 <Link
@@ -109,7 +141,7 @@ const LoggedIn = () => {
                   underline="none"
                   color="inherit"
                 >
-                  <a>{list.name}</a>
+                  {list.name}
                 </Link>
               }
               titleTypographyProps={{ fontSize: "1rem" }}
