@@ -1,24 +1,62 @@
-import { Head, useQuery, useParam, BlitzPage } from "blitz"
+import { Head, useQuery, useParam, BlitzPage, useMutation } from "blitz"
 import Layout from "app/core/layouts/Layout"
 import getList from "app/lists/queries/getList"
+import {
+  AppBar,
+  Button,
+  Card,
+  Checkbox,
+  IconButton,
+  Stack,
+  Toolbar,
+  Typography,
+} from "@mui/material"
+import RemoveIcon from "@mui/icons-material/Remove"
+import logout from "app/auth/mutations/logout"
 
 const ShowListPage: BlitzPage = () => {
   const listId = useParam("listId", "number")
   const [list] = useQuery(getList, { id: listId })
+  const [logoutMutation] = useMutation(logout)
 
   return (
     <>
       <Head>
-        <title>List {list.id}</title>
+        <title>{list.name}</title>
       </Head>
 
-      <h1>List {list.id}</h1>
+      <AppBar position="static" sx={{ marginBottom: 2 }}>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {list.name}
+          </Typography>
 
-      <ul>
+          <Button
+            color="inherit"
+            onClick={async () => {
+              await logoutMutation()
+            }}
+          >
+            Logout
+          </Button>
+        </Toolbar>
+      </AppBar>
+
+      <Stack spacing={2}>
         {list.items.map((item) => (
-          <li key={item.id}>{item.name}</li>
+          <Card key={item.id} variant="outlined">
+            <Stack direction="row" alignItems="center">
+              <Checkbox />
+
+              <Typography sx={{ flexGrow: 1 }}>{item.name}</Typography>
+
+              <IconButton>
+                <RemoveIcon color="error" />
+              </IconButton>
+            </Stack>
+          </Card>
         ))}
-      </ul>
+      </Stack>
     </>
   )
 }
