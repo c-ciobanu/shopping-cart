@@ -22,6 +22,7 @@ import {
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
+import AddIcon from "@mui/icons-material/Add"
 import { useState } from "react"
 import { Box } from "@mui/system"
 import deleteList from "app/lists/mutations/deleteList"
@@ -110,6 +111,10 @@ const LoggedIn = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             My Lists
           </Typography>
+
+          <Button component={BlitzLinkComposed} to={Routes.NewListPage()} color="inherit">
+            <AddIcon />
+          </Button>
 
           <Button
             color="inherit"
