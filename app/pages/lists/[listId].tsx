@@ -14,6 +14,7 @@ import {
 import RemoveIcon from "@mui/icons-material/Remove"
 import logout from "app/auth/mutations/logout"
 import deleteItem from "app/items/mutations/deleteItem"
+import { AddItemFormDialog } from "app/items/components/AddItemFormDialog"
 
 const ShowListPage: BlitzPage = () => {
   const listId = useParam("listId", "number")
@@ -32,6 +33,13 @@ const ShowListPage: BlitzPage = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {list.name}
           </Typography>
+
+          <AddItemFormDialog
+            listId={listId!}
+            onSubmit={(item) => {
+              setQueryData({ ...list, items: list.items.concat(item) }, { refetch: false })
+            }}
+          />
 
           <Button
             color="inherit"
