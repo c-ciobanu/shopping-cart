@@ -13,11 +13,13 @@ import {
 } from "@mui/material"
 import RemoveIcon from "@mui/icons-material/Remove"
 import logout from "app/auth/mutations/logout"
+import deleteItem from "app/items/mutations/deleteItem"
 
 const ShowListPage: BlitzPage = () => {
   const listId = useParam("listId", "number")
-  const [list] = useQuery(getList, { id: listId })
+  const [list, { setQueryData }] = useQuery(getList, { id: listId })
   const [logoutMutation] = useMutation(logout)
+  const [deleteItemMutation] = useMutation(deleteItem)
 
   return (
     <>
@@ -50,7 +52,16 @@ const ShowListPage: BlitzPage = () => {
 
               <Typography sx={{ flexGrow: 1 }}>{item.name}</Typography>
 
-              <IconButton>
+              <IconButton
+                onClick={async () => {
+                  await deleteItemMutation({ id: item.id })
+
+                  setQueryData(
+                    { ...list, items: list.items.filter((i) => i.id !== item.id) },
+                    { refetch: false }
+                  )
+                }}
+              >
                 <RemoveIcon color="error" />
               </IconButton>
             </Stack>
