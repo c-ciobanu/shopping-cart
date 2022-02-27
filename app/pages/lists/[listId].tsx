@@ -15,12 +15,14 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import logout from "app/auth/mutations/logout"
 import deleteItem from "app/items/mutations/deleteItem"
 import { AddItemFormDialog } from "app/items/components/AddItemFormDialog"
+import updateItem from "app/items/mutations/updateItem"
 
 const ShowListPage: BlitzPage = () => {
   const listId = useParam("listId", "number")
   const [list, { setQueryData }] = useQuery(getList, { id: listId })
   const [logoutMutation] = useMutation(logout)
   const [deleteItemMutation] = useMutation(deleteItem)
+  const [updateItemMutation] = useMutation(updateItem)
 
   return (
     <>
@@ -56,7 +58,12 @@ const ShowListPage: BlitzPage = () => {
         {list.items.map((item) => (
           <Card key={item.id} variant="outlined">
             <Stack direction="row" alignItems="center">
-              <Checkbox />
+              <Checkbox
+                defaultChecked={item.checked}
+                onChange={async () => {
+                  await updateItemMutation({ id: item.id, checked: !item.checked })
+                }}
+              />
 
               <Typography sx={{ flexGrow: 1 }}>{item.name}</Typography>
 
