@@ -16,10 +16,16 @@ import logout from "app/auth/mutations/logout"
 import deleteItem from "app/items/mutations/deleteItem"
 import { AddItemFormDialog } from "app/items/components/AddItemFormDialog"
 import updateItem from "app/items/mutations/updateItem"
+import getItems from "app/items/queries/getItems"
+import { updateObjectInArray } from "app/core/utils/array"
 
 const ShowListPage: BlitzPage = () => {
   const listId = useParam("listId", "number")
-  const [list, { setQueryData }] = useQuery(getList, { id: listId })
+  const [list] = useQuery(getList, { id: listId })
+  const [items, { setQueryData }] = useQuery(getItems, {
+    where: { listId },
+    orderBy: { name: "asc" },
+  })
   const [logoutMutation] = useMutation(logout)
   const [deleteItemMutation] = useMutation(deleteItem)
   const [updateItemMutation] = useMutation(updateItem)
@@ -39,7 +45,7 @@ const ShowListPage: BlitzPage = () => {
           <AddItemFormDialog
             listId={listId!}
             onSubmit={(item) => {
-              setQueryData({ ...list, items: list.items.concat(item) }, { refetch: false })
+              setQueryData(items.concat(item), { refetch: false })
             }}
           />
 
@@ -55,13 +61,18 @@ const ShowListPage: BlitzPage = () => {
       </AppBar>
 
       <Stack spacing={2}>
-        {list.items.map((item) => (
+        {items.map((item, index) => (
           <Card key={item.id} variant="outlined">
             <Stack direction="row" alignItems="center">
               <Checkbox
                 defaultChecked={item.checked}
                 onChange={async () => {
-                  await updateItemMutation({ id: item.id, checked: !item.checked })
+                  const updatedItem = await updateItemMutation({
+                    id: item.id,
+                    checked: !item.checked,
+                  })
+
+                  setQueryData(updateObjectInArray(items, index, updatedItem), { refetch: false })
                 }}
               />
 
@@ -72,7 +83,7 @@ const ShowListPage: BlitzPage = () => {
                   await deleteItemMutation({ id: item.id })
 
                   setQueryData(
-                    { ...list, items: list.items.filter((i) => i.id !== item.id) },
+                    items.filter((i) => i.id !== item.id),
                     { refetch: false }
                   )
                 }}

@@ -12,9 +12,6 @@ export default resolver.pipe(resolver.zod(GetList), resolver.authorize(), async 
 
   const list = await db.list.findFirst({
     where: { id, userId },
-    include: {
-      items: true,
-    },
   })
 
   if (!list) {
