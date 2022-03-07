@@ -67,7 +67,7 @@ const ShowListPage: BlitzPage = () => {
           <Card key={item.id} variant={item.checked ? "elevation" : "outlined"}>
             <Stack direction="row" alignItems="center">
               <Checkbox
-                defaultChecked={item.checked}
+                checked={item.checked}
                 onChange={async () => {
                   const updatedItem = await updateItemMutation({
                     id: item.id,
@@ -83,6 +83,7 @@ const ShowListPage: BlitzPage = () => {
                     { refetch: false }
                   )
                 }}
+                inputProps={{ "aria-label": "controlled" }}
               />
 
               <Typography sx={{ flexGrow: 1 }}>{item.name}</Typography>
