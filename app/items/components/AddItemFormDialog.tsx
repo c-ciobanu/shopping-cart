@@ -8,7 +8,7 @@ import createItem from "../mutations/createItem"
 import { Item } from "@prisma/client"
 
 type AddItemFormDialogProps = {
-  listId: number
+  listId: string
   onSubmit: (item: Item) => Promise<void> | void
 }
 

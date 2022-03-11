@@ -28,7 +28,7 @@ import { Box } from "@mui/system"
 import deleteList from "app/lists/mutations/deleteList"
 
 type ListSettingsMenuProps = {
-  listId: number
+  listId: string
   onDelete: () => Promise<void>
 }
 

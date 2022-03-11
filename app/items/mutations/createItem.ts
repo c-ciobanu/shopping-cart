@@ -4,7 +4,7 @@ import { z } from "zod"
 
 const CreateItem = z.object({
   name: z.string(),
-  listId: z.number(),
+  listId: z.string(),
 })
 
 export default resolver.pipe(resolver.zod(CreateItem), resolver.authorize(), async (input) => {

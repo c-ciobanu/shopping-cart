@@ -66,7 +66,7 @@ enum TokenType {
 }
 
 model List {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
@@ -83,6 +83,6 @@ model Item {
   name      String
   checked   Boolean  @default(false)
 
-  list   List @relation(fields: [listId], references: [id], onDelete: Cascade)
-  listId Int
+  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId String
 }

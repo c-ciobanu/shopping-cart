@@ -21,7 +21,7 @@ import { updateObjectInArray } from "app/core/utils/array"
 import sortBy from "lodash.sortby"
 
 const ShowListPage: BlitzPage = () => {
-  const listId = useParam("listId", "number")
+  const listId = useParam("listId", "string")
   const [list] = useQuery(getList, { id: listId })
   const [items, { setQueryData }] = useQuery(getItems, {
     where: { listId },

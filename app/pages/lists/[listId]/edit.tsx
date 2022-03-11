@@ -6,7 +6,7 @@ import { ListForm, FORM_ERROR } from "app/lists/components/ListForm"
 
 const EditListPage: BlitzPage = () => {
   const router = useRouter()
-  const listId = useParam("listId", "number")
+  const listId = useParam("listId", "string")
   const [list] = useQuery(
     getList,
     { id: listId },

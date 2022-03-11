@@ -3,7 +3,7 @@ import db, { Prisma } from "db"
 import { z } from "zod"
 
 const UpdateList = z.object({
-  id: z.number(),
+  id: z.string(),
   name: z.string(),
 })
 
